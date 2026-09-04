@@ -4,3 +4,14 @@ __pycache__/
 temporary_uploads/
 .DS_Store
 instance/*.sqlite3
+.vscode/
+.obsidian/
+bike+sharing+dataset
+cs50.venv
+md files/
+MISSION.md
+NOTES.md
+regression_test.csv
+test.ipynb
+.pytest_cache/
+*.ipynb
