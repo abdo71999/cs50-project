@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}Physics Data Lab{% endblock %}
+
+{% block body %}
+<main class="container page-shell py-5">
+  <section class="row align-items-center g-4 mb-5">
+    <div class="col-lg-7">
+      <span class="badge text-bg-primary mb-3">Linear regression, made practical</span>
+      <h1 class="display-5 fw-bold mb-3">Understand the relationship in your data.</h1>
+      <p class="lead text-secondary mb-4">
+        Upload a CSV, choose two numerical columns, and inspect the fitted line,
+        prediction errors, and regression metrics.
+      </p>
+
+      {% if session.get("user_id") %}
+      <a class="btn btn-primary btn-lg" href="{{ url_for('upload') }}">Start an analysis</a>
+      <a class="btn btn-outline-secondary btn-lg ms-2" href="{{ url_for('history') }}">View history</a>
+      {% else %}
+      <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}">Create an account</a>
+      <a class="btn btn-outline-secondary btn-lg ms-2" href="{{ url_for('login') }}">Sign in</a>
+      {% endif %}
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <h2 class="h4">What you will get</h2>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0">A fitted linear regression model</li>
+            <li class="list-group-item px-0">Slope, intercept, RMSE, and R²</li>
+            <li class="list-group-item px-0">A chart and observation-level residuals</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="workflow-heading">
+    <div class="mb-3">
+      <h2 class="h3 mb-1" id="workflow-heading">How it works</h2>
+      <p class="text-secondary mb-0">Three steps from raw data to a useful model.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <article class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <p class="text-primary fw-semibold mb-2">01</p>
+            <h3 class="h4">Upload</h3>
+            <p class="text-secondary mb-0">Choose a CSV dataset from your computer.</p>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <p class="text-primary fw-semibold mb-2">02</p>
+            <h3 class="h4">Choose columns</h3>
+            <p class="text-secondary mb-0">Select the X and Y variables you want to compare.</p>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <p class="text-primary fw-semibold mb-2">03</p>
+            <h3 class="h4">Review results</h3>
+            <p class="text-secondary mb-0">Inspect the model, its errors, and the regression plot.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="card border-0 shadow-sm mt-5" aria-labelledby="dataset-requirements-heading">
+    <div class="card-body p-4 p-md-5">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h2 class="h3 mb-2" id="dataset-requirements-heading">Before you begin</h2>
+          <p class="text-secondary mb-0">
+            Your file can contain other information, but the two columns selected for regression
+            must meet these requirements.
+          </p>
+        </div>
+        <div class="col-md-8">
+          <ul class="mb-0 ps-3">
+            <li class="mb-2">Use a readable <code>.csv</code> file with a first row of column names.</li>
+            <li class="mb-2">Choose two different columns for X and Y.</li>
+            <li class="mb-2">The selected X and Y columns must contain numbers, with no blank or missing values.</li>
+            <li class="mb-2">Provide at least three observations.</li>
+            <li>Both selected columns must vary; a column containing the same value in every row cannot be fitted.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

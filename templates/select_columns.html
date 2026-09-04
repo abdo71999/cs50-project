@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{%block title%} Select X/Y {% endblock %}
+
+{%block body%}
+
+    <main class="container page-shell py-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5">
+                <span class="badge text-bg-primary mb-3">Step 2 of 2</span>
+                <h1 class="card-title">Choose your variables</h1>
+                <p class="card-text text-secondary mb-4">
+                    Select the independent variable (X) and the value you want to explain (Y).
+                </p>
+                <form action="{{ url_for('analyze') }}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="analysis-name">Analysis name</label>
+                        <input
+                            class="form-control"
+                            id="analysis-name"
+                            name="analysis_name"
+                            type="text"
+                            maxlength="100"
+                            placeholder="Untitled analysis"
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="X">X column</label>
+                        <select class="form-select" id="X" name="x_column">
+                            {%for col in col_names%}
+                            <option value="{{ col }}">{{ col }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="Y">Y column</label>
+                        <select class="form-select" id="Y" name="y_column">
+                            {%for col in col_names%}
+                            <option value="{{ col }}">{{ col }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Run analysis</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "layout.html" %} {% block title%} Results {%endblock%} {% block
+extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script src="{{ url_for('static', filename='results.js') }}" defer></script>
+{% endblock %} {% block body %}
+
+<main class="container page-shell py-5">
+  <div
+    class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2"
+  >
+    <div>
+      <span class="badge text-bg-success mb-2">Analysis complete</span>
+      <h1 class="mb-1">Regression results</h1>
+      <p class="text-secondary mb-0">Your fitted line and prediction errors.</p>
+      <p class="text-secondary mb-0">{{ analysis_name }}</p>
+    </div>
+    <a class="btn btn-outline-primary" href="{{ url_for('upload') }}"
+      >Analyze another file</a
+    >
+    <a class="btn btn-outline-primary" href="{{ url_for('select_columns') }}"
+      >Change Columns</a
+    >
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card metric-card border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 text-secondary">Slope</h2>
+          <p class="display-6 mb-0">{{ slope|round(3) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card metric-card border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 text-secondary">Intercept</h2>
+          <p class="display-6 mb-0">{{ intercept|round(3) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card metric-card border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 text-secondary">RMSE</h2>
+          <p class="display-6 mb-0">{{ rmse|round(3) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card metric-card border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 text-secondary">R²</h2>
+          <p class="display-6 mb-0">{{ r_squared|round(3) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="p-4 pb-2">
+        <h2 class="h5 mb-1">Observation details</h2>
+        <p class="text-secondary mb-0">
+          Actual values compared with the fitted model.
+        </p>
+      </div>
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h2 class="h5">Regression plot</h2>
+          <canvas id="regressionChart"></canvas>
+        </div>
+      </div>
+      <script id="regression-data" type="application/json">
+        {{ {
+            "x": x_values,
+            "actual": actual_values,
+            "predicted": predicted_values
+        } | tojson }}
+      </script>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Actual Y</th>
+              <th scope="col">Predicted Y</th>
+              <th scope="col">Residual</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for val in y_table %}
+            <tr>
+              <td>{{ val.actual_y|round(3) }}</td>
+              <td>{{ val.predicted_y|round(3) }}</td>
+              <td>{{ val.residual|round(3) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock body %}

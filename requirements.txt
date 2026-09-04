@@ -1,0 +1,8 @@
+cs50
+Flask
+Flask-Session
+pytz
+requests
+pandas
+scikit-learn
+python-dotenv

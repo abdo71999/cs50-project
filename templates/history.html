@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}Analysis history{% endblock %}
+
+{% block body %}
+<main class="container page-shell py-5">
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+    <div>
+      <span class="badge text-bg-primary mb-2">Saved analyses</span>
+      <h1 class="mb-1">Analysis history</h1>
+      <p class="text-secondary mb-0">
+        Review the regression summaries saved by this local app.
+      </p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('upload') }}">New analysis</a>
+  </div>
+
+  {% if analyses %}
+  <div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Created</th>
+            <th scope="col">X</th>
+            <th scope="col">Y</th>
+            <th scope="col">Slope</th>
+            <th scope="col">Intercept</th>
+            <th scope="col">RMSE</th>
+            <th scope="col">R²</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for analysis in analyses %}
+          <tr>
+            <th scope="row">{{ analysis["name"] }}</th>
+            <td>{{ analysis["created_at"] }}</td>
+            <td>{{ analysis["x_column"] }}</td>
+            <td>{{ analysis["y_column"] }}</td>
+            <td>{{ analysis["slope"]|round(3) }}</td>
+            <td>{{ analysis["intercept"]|round(3) }}</td>
+            <td>{{ analysis["rmse"]|round(3) }}</td>
+            <td>{{ analysis["r_squared"]|round(3) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4 p-md-5 text-center">
+      <h2 class="h4">No saved analyses yet</h2>
+      <p class="text-secondary">Run an analysis and it will appear here.</p>
+      <a class="btn btn-primary" href="{{ url_for('upload') }}">Upload a dataset</a>
+    </div>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}
