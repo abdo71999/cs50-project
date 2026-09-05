@@ -9,6 +9,7 @@ output/
 .playwright-cli/
 .vscode/
 .obsidian/
+AGENTS.md
 bike+sharing+dataset
 cs50.venv
 md files/
