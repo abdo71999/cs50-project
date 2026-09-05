@@ -18,3 +18,4 @@ regression_test.csv
 test.ipynb
 .pytest_cache/
 *.ipynb
+.playwright-cli/
