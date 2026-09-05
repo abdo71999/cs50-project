@@ -2,6 +2,8 @@
 
 Physics Data Lab is a small Flask app I built to make basic linear regression easier to try with your own data.
 
+![Physics Data Lab home page](docs/physics-data-lab-home.png)
+
 You can use it to:
 
 - create an account and sign in

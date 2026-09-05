@@ -4,6 +4,9 @@ __pycache__/
 temporary_uploads/
 .DS_Store
 instance/*.sqlite3
+.pytest_cache/
+output/
+.playwright-cli/
 .vscode/
 .obsidian/
 bike+sharing+dataset
