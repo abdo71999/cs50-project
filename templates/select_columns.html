@@ -13,6 +13,7 @@
                     Select the independent variable (X) and the value you want to explain (Y).
                 </p>
                 <form action="{{ url_for('analyze') }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <label class="form-label" for="analysis-name">Analysis name</label>
                         <input

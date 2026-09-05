@@ -3,6 +3,7 @@ from flask import Flask, jsonify, render_template, request, redirect, session, u
 from werkzeug.security import generate_password_hash
 import secrets
 from auth import login_required
+from flask_wtf.csrf import CSRFProtect
 from pathlib import Path
 import numpy as np
 from database import (
@@ -25,7 +26,9 @@ from data_processing import (
     y_table,
 )
 
+# initialize Flask app
 app = Flask(__name__)
+
 
 # Keep uploaded data outside the static directory so Flask never serves it directly.
 UPLOAD_FOLDER = Path(__file__).parent / "temporary_uploads"
@@ -36,6 +39,10 @@ app.config["SECRET_KEY"] = os.environ["PHYSICS_DATA_LAB_SECRET_KEY"]
 app.config["DATABASE"] = Path(app.instance_path) / "analyses.sqlite3"
 app.teardown_appcontext(close_db)
 
+# Enable CSRF protection for all routes
+csrf = CSRFProtect(app)
+
+# Initialize the database if it doesn't exist
 with app.app_context():
     init_db()
 

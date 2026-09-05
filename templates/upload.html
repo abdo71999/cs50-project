@@ -13,6 +13,7 @@
                     Upload a CSV file to begin a linear regression analysis.
                 </p>
                 <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <label class="form-label" for="dataset">CSV dataset</label>
                     <input class="form-control mb-3" id="dataset" type="file" name="dataset" accept=".csv" required>
                     <button class="btn btn-primary" type="submit">Upload dataset</button>

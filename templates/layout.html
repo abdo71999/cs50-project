@@ -53,6 +53,7 @@
           <div class="d-flex align-items-center gap-2">
             {% if session.get("user_id") %}
             <form action="{{ url_for('logout') }}" method="post">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
               <button class="btn btn-outline-secondary" type="submit">Sign out</button>
             </form>
             {% else %}
